@@ -6,6 +6,8 @@ void test_createlist() {
     int i;
     for (i=0; i < 10; i++) 
         printf("%d \n", theList->sortedList[i]);
+    
+    printf("%d", theList->maxSize);
 }
 
 void test_insert() {
@@ -13,7 +15,6 @@ void test_insert() {
 }
 
 
-//Comment
 int main() {   
     test_createlist();
        
