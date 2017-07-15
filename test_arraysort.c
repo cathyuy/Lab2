@@ -5,7 +5,7 @@ void test_createlist() {
     list * theList = createlist(10);
     int i;
     for (i=0; i < 10; i++) 
-        printf("%d", theList->sortedList[i]);
+        printf("%d \n", theList->sortedList[i]);
 }
 
 void test_insert() {
