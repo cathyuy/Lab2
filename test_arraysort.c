@@ -26,17 +26,17 @@ int main() {
                 break;
 
             case 'x':
-                printf("Max value: %d/n", get_max_value(testList));
+                printf("Max value: %d \n", get_max_value(testList));
                 break;
             
             case 'n':
-                printf("Min value: %d/n", get_min_value(testList));
+                printf("Min value: %d \n", get_min_value(testList));
                 break;
             
             case 's':
                 printf("Search For: ");
                 scanf("%d", &value);
-                printf("Index of value: %d/n", search(testList, value));
+                printf("Index of value: %d \n", search(testList, value));
                 break;
 
             case 'm':
