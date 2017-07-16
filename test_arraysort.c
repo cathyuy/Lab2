@@ -4,7 +4,7 @@
 int main() {   
     char command = '0';
     int value;
-    list * testList = createlist(10);
+    list * testList = createlist(2);
     while (1) {
         printf("(i)nsert\n(r)emove_val\nget_ma(x)_value\n");
         printf("get_mi(n)_value\n(s)earch\npop_(m)in\n(p)rint\n(e)xit\n");

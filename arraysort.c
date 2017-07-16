@@ -98,12 +98,12 @@ int remove_val(list *ls, int val)
         return -1;                                                              
     }       
 
-    if(size == 0) {
+    if(size == 0) {     // List is empty
         printf("NO ELEMENTS TO DELETE \n");
         return -1;
     }
-    
-    for(i = 0; i < size; i++) {
+   
+    for(i = 0; i < size; i++) {     
         if(ls->sortedList[i] == val) {
             int j;
             for(j = i; j < size; j++) {
