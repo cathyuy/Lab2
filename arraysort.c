@@ -42,8 +42,9 @@ int insert(list *ls, int val)
         for (i = 0; i < size; i++) {
             newList[i] = ls->sortedList[i];
         } 
+        free(*oldListptr); 
+        *oldListptr = NULL;
         ls->sortedList = newList;
-        free(*oldListptr);    
     }    
     
     if (size == 0) {     //first item insertion
