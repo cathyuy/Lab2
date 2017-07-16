@@ -10,7 +10,7 @@
 list* createlist(int maxElements)
 {
     list * theList = malloc(sizeof(list));
-    theList->sortedList = malloc(sizeof(int)*maxElements);
+    theList->sortedList = (int *) malloc(sizeof(int)*maxElements);
     theList->maxSize = maxElements;
     theList->size = 0;
     return theList;
@@ -30,18 +30,27 @@ int insert(list *ls, int val)
 {
     int i, j;
     int size = ls->size;
-     
-    if (!ls) {       // Null pointer check & debug message
+    
+    // Null pointer & debug messages
+    if (!ls) {
         printf("ERROR: List pointer is null!!\n");
         return -1;
     }
     
-    if (size == ls->maxSize) {      // list is full
-        printf("ERROR: List is full!!\n");
-        return -1;    
+    // list is full Note: define magic number
+    if (size == ls->maxSize) { 
+        int i;
+        int * newList = malloc(sizeof(int)*ls->maxSize*2);
+        int ** oldListptr;
+        for (i = 0; i < ls->size; i++) 
+            newList[i] = ls->sortedList[i];
+        oldListptr = &(ls->sortedList);
+        free(*oldListptr);   
+        ls->sortedList = newList;
     }    
     
-    if (size == 0) {     //first item insertion
+    // first item insertion
+    if (size == 0) {   
         ls->sortedList[0] = val;   
         (ls->size)++;
         printf("First insert successful!\n");
@@ -49,25 +58,29 @@ int insert(list *ls, int val)
         return 0;
     }
 
-    for (i = 0; i < size; i++) {      // iterate through the list
-        if (val <= ls->sortedList[i]) {    // stop at successor
-            for (j = size-1; j > i; j--)    // shift right
-                ls->sortedList[j] = ls->sortedList[j-1];  
-            ls->sortedList[i] = val;       // insert val
+    // iterate through list, stop at successor, shift right
+    for (i = 0; i <= size; i++) {     
+        // if item is in the middle of the list
+        if (val <= ls->sortedList[i]) {     
+            for (j = size; j >= i; j--)    
+                ls->sortedList[j] = ls->sortedList[j-1]; 
+            ls->sortedList[i] = val;      
             (ls->size)++;
             printf("Insertion Successful: ");
             print(ls);
             return i;
         }
-        
-        if (!ls->sortedList[i]) {    // stop if empty space is found      
+
+        // if item is new max         
+        else if (!ls->sortedList[i]) {     
             ls->sortedList[i] = val;
             (ls->size)++;
             printf("Insertion Successful: ");
             print(ls);
-            return i;
-        }
+            return i;  
+      }
     }
+
     printf("Oops, something went wrong with the insertion\n");
     return -1;   
 }
@@ -80,6 +93,41 @@ int insert(list *ls, int val)
  */
 int remove_val(list *ls, int val)
 {
+    int i;
+    int targetIdx = NULL;
+    int multiple = 0;
+    int size = ls->size;
+    
+    // Null ptr check
+    if (!ls) {
+        printf("List pointer is null!!\n");
+        return -1;
+    }
+    
+    // check if item is in the list & if there are duplicates
+    for (i = 0; i < size; i++) {
+        if (ls->sortedList[i] == val) {
+            multiple++;
+            if (targetIdx == NULL) {
+                targetIdx = i;
+            }
+        }   
+    }
+    
+    // shift items to left by number of duplicates
+    for (i = targetIdx; (i + multiple) < size; i++) { 
+        ls->sortedList[i] = ls->sortedList[i + multiple];  
+    }
+
+    // delete extra items
+    i = 1;
+    while (i <= multiple) {
+        ls->sortedList[size - i] = NULL;
+        i++;
+        (ls->size)--;
+    }
+  
+    return multiple;
 }
 
 /**

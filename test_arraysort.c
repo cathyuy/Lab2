@@ -4,19 +4,15 @@
 int main() {   
     char command = '0';
     int value;
-    list * testList;
+    list * testList = createlist(10);
     while (1) {
-        printf("(c)reate list\n(i)nsert\n(r)emove_val\nget_ma(x)_value\n");
+        printf("(i)nsert\n(r)emove_val\nget_ma(x)_value\n");
         printf("get_mi(n)_value\n(s)earch\npop_(m)in\n(p)rint\n(e)xit\n");
         printf("Please enter a command: \n");
         scanf("%c", &command);
         printf("\n");
         
         switch (command) {
-            case 'c':
-                testList = createlist(10);
-                break;
-            
             case 'i':
                 printf("Enter value: ");
                 scanf("%d", &value);
@@ -56,6 +52,8 @@ int main() {
                 break;
 
             case 'e':
+                free(testList->sortedList);
+                free(testList);
                 return 0;
             
         }
