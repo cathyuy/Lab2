@@ -155,6 +155,17 @@ int get_min_value(list *ls){
  * list. It returns -1 if the value 'val' is not present in the list.
  */
 int search(list *ls, int val){
+    int i;
+    if (!ls) {  
+        printf("List pointer is null!!\n");
+        return -1;
+    }
+    
+    for (i = 0; i < ls->size; i++) {
+        if (ls->sortedList[i] == val)
+            return i;
+    }
+    return -1;     
 }
 
 /**
