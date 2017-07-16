@@ -53,7 +53,6 @@ int insert(list *ls, int val)
     
     for (i = 0; i < size; i++) {      // iterate through the list
         if (val <= ls->sortedList[i]) {    // stop at successor
-            printf("value out of order");
             for (j = size-1; j >= i; j--)    // shift right
                 ls->sortedList[j+1] = ls->sortedList[j];  
             ls->sortedList[i] = val;       // insert val
@@ -84,7 +83,34 @@ int insert(list *ls, int val)
  */
 int remove_val(list *ls, int val)
 {
+    int i;
+    int size = ls->size;
+    int items = 0;
+   
+    if (!ls) {       // Null pointer check & debug message                      
+        printf("ERROR: List pointer is null!!\n");                              
+        return -1;                                                              
+    }       
 
+    if(size == 0) {
+        printf("NO ELEMENTS TO DELETE \n");
+        return -1;
+    }
+    
+    for(i = 0; i < size; i++) {
+        if(ls->sortedList[i] == val) {
+            int j;
+            for(j = i; j < size; j++) {
+                ls->sortedList[j] = ls->sortedList[j+1];
+            }
+            (ls->size)--;
+            size = ls->size;
+            items++;
+            i--;
+        }
+    }
+    print(ls);
+    return items;
 
 
 }
