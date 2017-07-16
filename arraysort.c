@@ -10,7 +10,7 @@
 list* createlist(int maxElements)
 {
     list * theList = malloc(sizeof(list));
-    theList->sortedList = malloc(sizeof(int),maxElements);
+    theList->sortedList = malloc(sizeof(int)*maxElements);
     theList->maxSize = maxElements;
     theList->size = 0;
     return theList;
@@ -40,23 +40,29 @@ int insert(list *ls, int val)
         printf("ERROR: List is full!!\n");
         return -1;    
     }    
+    
+    if (size == 0) {     //first item insertion
+        ls->sortedList[0] = val;   
+        (ls->size)++;
+        printf("First insert successful!\n");
+        print(ls);
+        return 0;
+    }
 
     for (i = 0; i < size; i++) {      // iterate through the list
-        if (val <= ls->sortedArray[i]) {    // stop at successor
+        if (val <= ls->sortedList[i]) {    // stop at successor
             for (j = size-1; j > i; j--)    // shift right
-                ls->sortedArray[j] = ls->sortedArray[j-1];  
-            ls->sortedArray[i] = val;       // insert val
-            ls->size++;
-            ls->sortedArray++;
+                ls->sortedList[j] = ls->sortedList[j-1];  
+            ls->sortedList[i] = val;       // insert val
+            (ls->size)++;
             printf("Insertion Successful: ");
             print(ls);
             return i;
         }
         
-        if (!ls->sortedArray[i]) {    // stop if empty space is found      
-            ls->sortedArray[i] = val;
-            ls->size++;
-            ls->sortedArray++;
+        if (!ls->sortedList[i]) {    // stop if empty space is found      
+            ls->sortedList[i] = val;
+            (ls->size)++;
             printf("Insertion Successful: ");
             print(ls);
             return i;
@@ -114,7 +120,7 @@ void print(list *ls){
     
     if (!ls) {
         printf("ERROR: List pointer is null!!\n");
-        break;
+        return;
     }
     
     for (i = 0; i < ls->size; i++) 
