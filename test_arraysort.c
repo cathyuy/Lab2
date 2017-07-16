@@ -30,11 +30,11 @@ int main() {
                 break;
 
             case 'x':
-                printf("Max value: %d/n", get_max_value);
+                printf("Max value: %d/n", get_max_value(testList));
                 break;
             
             case 'n':
-                printf("Min value: %d/n", get_min_value);
+                printf("Min value: %d/n", get_min_value(testList));
                 break;
             
             case 's':

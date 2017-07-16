@@ -44,7 +44,6 @@ int insert(list *ls, int val)
     if (size == 0) {     //first item insertion
         ls->sortedList[0] = val;   
         (ls->size)++;
-        ls->sortedList++;
         printf("First insert successful!\n");
         print(ls);
         return 0;
@@ -56,7 +55,6 @@ int insert(list *ls, int val)
                 ls->sortedList[j] = ls->sortedList[j-1];  
             ls->sortedList[i] = val;       // insert val
             (ls->size)++;
-            ls->sortedList++;
             printf("Insertion Successful: ");
             print(ls);
             return i;
@@ -65,7 +63,6 @@ int insert(list *ls, int val)
         if (!ls->sortedList[i]) {    // stop if empty space is found      
             ls->sortedList[i] = val;
             (ls->size)++;
-            ls->sortedList++;
             printf("Insertion Successful: ");
             print(ls);
             return i;
