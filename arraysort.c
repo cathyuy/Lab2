@@ -162,6 +162,24 @@ int search(list *ls, int val){
  * list. It returns -1 if the list is empty.
  */
 int pop_min(list *ls){
+    int i;
+    int size = ls->size;
+    if(!ls) {
+        printf("ERROR: List pointer is null!!\n");                              
+        return -1;                                                              
+    }          
+    
+    if(size == 0){
+        return -1;
+    }
+    else {
+        int min = ls->sortedList[0];
+        for(i = 0; i < size-1; i++){
+            ls->sortedList[i] = ls->sortedList[i+1];
+        }    
+        (ls->size)--;
+        return min;
+    }   
 }
 
 /**
