@@ -121,6 +121,14 @@ int remove_val(list *ls, int val)
  */
 int get_max_value(list *ls)
 {
+    
+    if(ls->size == 0) {
+        return -1;
+    } 
+    else { 
+        int size = ls->size;
+        return ls->sortedList[size-1];
+    }
 }
 
 /**
@@ -128,6 +136,12 @@ int get_max_value(list *ls)
  * the list OR -1 if the list is empty.
  */
 int get_min_value(list *ls){
+    if(ls->size == 0){
+        return -1;
+    }
+    else{
+        return ls->sortedList[0];
+    }
 }
 
 /**
