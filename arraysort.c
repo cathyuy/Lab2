@@ -35,7 +35,7 @@ int insert(list *ls, int val)
         printf("ERROR: List pointer is null!!\n");
         return -1;
     }
-    
+        
     if (size == ls->maxSize) {      // list is full
         printf("ERROR: List is full!!\n");
         return -1;    
@@ -48,11 +48,14 @@ int insert(list *ls, int val)
         print(ls);
         return 0;
     }
+    
 
+    
     for (i = 0; i < size; i++) {      // iterate through the list
         if (val <= ls->sortedList[i]) {    // stop at successor
-            for (j = size-1; j > i; j--)    // shift right
-                ls->sortedList[j] = ls->sortedList[j-1];  
+            printf("value out of order");
+            for (j = size-1; j >= i; j--)    // shift right
+                ls->sortedList[j+1] = ls->sortedList[j];  
             ls->sortedList[i] = val;       // insert val
             (ls->size)++;
             printf("Insertion Successful: ");
@@ -60,14 +63,15 @@ int insert(list *ls, int val)
             return i;
         }
         
-        if (!ls->sortedList[i]) {    // stop if empty space is found      
-            ls->sortedList[i] = val;
+        if (i == size-1) {    // stop if empty space is found      
+            ls->sortedList[i+1] = val;
             (ls->size)++;
             printf("Insertion Successful: ");
             print(ls);
             return i;
         }
     }
+    
     printf("Oops, something went wrong with the insertion\n");
     return -1;   
 }
@@ -80,6 +84,9 @@ int insert(list *ls, int val)
  */
 int remove_val(list *ls, int val)
 {
+
+
+
 }
 
 /**
