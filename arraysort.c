@@ -32,7 +32,6 @@ int insert(list *ls, int val)
     int size = ls->size;
  
     if (!ls) {       // Null pointer check & debug message
-        printf("ERROR: List pointer is null!!\n");
         return -1;
     }
         
@@ -50,8 +49,6 @@ int insert(list *ls, int val)
     if (size == 0) {     //first item insertion
         ls->sortedList[0] = val;   
         (ls->size)++;
-        printf("First insert successful!\n");
-        print(ls);
         return 0;
     }
     
@@ -63,21 +60,16 @@ int insert(list *ls, int val)
                 ls->sortedList[j+1] = ls->sortedList[j];  
             ls->sortedList[i] = val;       // insert val
             (ls->size)++;
-            printf("Insertion Successful: ");
-            print(ls);
             return i;
         }
         
         if (i == size-1) {    // stop if empty space is found      
             ls->sortedList[i+1] = val;
             (ls->size)++;
-            printf("Insertion Successful: ");
-            print(ls);
             return i;
         }
     }
-    
-    printf("Oops, something went wrong with the insertion\n");
+   
     return -1;   
 }
 
@@ -94,12 +86,10 @@ int remove_val(list *ls, int val)
     int items = 0;
    
     if (!ls) {       // Null pointer check & debug message                      
-        printf("ERROR: List pointer is null!!\n");                              
         return -1;                                                              
     }       
 
     if(size == 0) {     // List is empty
-        printf("NO ELEMENTS TO DELETE \n");
         return -1;
     }
    
@@ -115,7 +105,6 @@ int remove_val(list *ls, int val)
             i--;
         }
     }
-    print(ls);
     return items;
 
 
@@ -157,7 +146,6 @@ int get_min_value(list *ls){
 int search(list *ls, int val){
     int i;
     if (!ls) {  
-        printf("List pointer is null!!\n");
         return -1;
     }
     
@@ -176,7 +164,6 @@ int pop_min(list *ls){
     int i;
     int size = ls->size;
     if(!ls) {
-        printf("ERROR: List pointer is null!!\n");                              
         return -1;                                                              
     }          
     
@@ -201,7 +188,6 @@ void print(list *ls){
     int i;
     
     if (!ls) {
-        printf("ERROR: List pointer is null!!\n");
         return;
     }
     
