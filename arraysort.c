@@ -9,8 +9,13 @@
  */
 list* createlist(int maxElements)
 {
+    //allocate memory for list struct
     list * theList = malloc(sizeof(list));
+   
+     //allocate memory for array storing elements
     theList->sortedList = malloc(sizeof(int)*maxElements);
+    
+    //initialize list fields
     theList->maxSize = maxElements;
     theList->size = 0;
     return theList;
@@ -31,39 +36,47 @@ int insert(list *ls, int val)
     int i, j;
     int size = ls->size;
  
-    if (!ls) {       // Null pointer check & debug message
+    //ls null ptr check
+    if (!ls) {   
         return -1;
     }
-        
-    if (size == ls->maxSize) {      // list is full
+    
+    //list is full   
+    if (size == ls->maxSize) {
+        //allocate memory for larger array
         int ** oldListptr = &(ls->sortedList);
         int * newList = malloc(sizeof(int)*(size*2));
+        //copy contents of smaller old list to bigger list
         for (i = 0; i < size; i++) {
             newList[i] = ls->sortedList[i];
         } 
+        //delete smaller old list
         free(*oldListptr); 
         *oldListptr = NULL;
         ls->sortedList = newList;
     }    
     
-    if (size == 0) {     //first item insertion
+    //if first item insertion
+    if (size == 0) {     
         ls->sortedList[0] = val;   
         (ls->size)++;
         return 0;
     }
     
-
-    
-    for (i = 0; i < size; i++) {      // iterate through the list
-        if (val <= ls->sortedList[i]) {    // stop at successor
-            for (j = size-1; j >= i; j--)    // shift right
+    //find insertion location
+    for (i = 0; i < size; i++) {  
+        //inserting in middle
+        if (val <= ls->sortedList[i]) {   
+            //shift right
+            for (j = size-1; j >= i; j--) 
                 ls->sortedList[j+1] = ls->sortedList[j];  
-            ls->sortedList[i] = val;       // insert val
+            //insert item & update list size
+            ls->sortedList[i] = val;      
             (ls->size)++;
             return i;
         }
-        
-        if (i == size-1) {    // stop if empty space is found      
+        //item is new max element
+        if (i == size-1) {         
             ls->sortedList[i+1] = val;
             (ls->size)++;
             return i;
@@ -85,20 +98,26 @@ int remove_val(list *ls, int val)
     int size = ls->size;
     int items = 0;
    
-    if (!ls) {       // Null pointer check & debug message                      
+    //ls null ptr check
+    if (!ls) {                           
         return -1;                                                              
     }       
-
-    if(size == 0) {     // List is empty
+   
+    //list is empty, remove failed
+    if(size == 0) {     
         return -1;
     }
    
+    //find item to remove
     for(i = 0; i < size; i++) {     
+        //item found
         if(ls->sortedList[i] == val) {
             int j;
+            //shift list when item is found
             for(j = i; j < size; j++) {
                 ls->sortedList[j] = ls->sortedList[j+1];
             }
+            //update list size & num items removed
             (ls->size)--;
             size = ls->size;
             items++;
@@ -116,10 +135,11 @@ int remove_val(list *ls, int val)
  */
 int get_max_value(list *ls)
 {
-    
+    //list is empty   
     if(ls->size == 0) {
         return -1;
     } 
+    //return last element
     else { 
         int size = ls->size;
         return ls->sortedList[size-1];
@@ -131,9 +151,11 @@ int get_max_value(list *ls)
  * the list OR -1 if the list is empty.
  */
 int get_min_value(list *ls){
+    //list is empty
     if(ls->size == 0){
         return -1;
     }
+    //return first element
     else{
         return ls->sortedList[0];
     }
@@ -145,10 +167,12 @@ int get_min_value(list *ls){
  */
 int search(list *ls, int val){
     int i;
+    //ls null ptr check
     if (!ls) {  
         return -1;
     }
     
+    //check each index if it contains the key   
     for (i = 0; i < ls->size; i++) {
         if (ls->sortedList[i] == val)
             return i;
@@ -163,13 +187,15 @@ int search(list *ls, int val){
 int pop_min(list *ls){
     int i;
     int size = ls->size;
+    //ls null ptr check
     if(!ls) {
         return -1;                                                              
     }          
-    
+    //list is empty, pop failed   
     if(size == 0){
         return -1;
     }
+    //save min value & shift items left
     else {
         int min = ls->sortedList[0];
         for(i = 0; i < size-1; i++){
@@ -187,6 +213,7 @@ int pop_min(list *ls){
 void print(list *ls){
     int i;
     
+    //ls null ptr check
     if (!ls) {
         return;
     }
